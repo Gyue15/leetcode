@@ -9,4 +9,12 @@ public class PrintUtil {
         }
         System.out.println("\b\b]");
     }
+
+    public static void printArr(int[] arr) {
+        System.out.print("[");
+        for (int o : arr) {
+            System.out.print(o + ", ");
+        }
+        System.out.println("\b\b]");
+    }
 }
