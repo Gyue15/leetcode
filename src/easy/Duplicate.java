@@ -55,9 +55,44 @@ public class Duplicate {
         return insertIndex > 0 ? insertIndex : 1;
     }
 
+    public int removeDuplicates2(int[] nums) {
+        int offset = 0;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1]) {
+                offset++;
+            } else if (offset > 0) {
+                nums[i - offset] = nums[i];
+            }
+        }
+
+        return nums.length - offset;
+    }
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode res = head;
+        while (head != null) {
+            while(head.next != null && head.val == head.next.val) {
+                ListNode node = head.next;
+                head.next = node.next;
+            }
+            head = head.next;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         int[] nums = {1, 1};
-        String len = "" + new Duplicate().removeDuplicates(nums);
+        String len = "" + new Duplicate().removeDuplicates2(nums);
         PrintUtil.printArr(nums, len);
     }
 }

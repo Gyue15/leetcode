@@ -7,17 +7,26 @@ import java.util.Map;
 
 public class TwoSum {
 
-    public int[] twoSumUniq(int[] nums, int target) {
+
+    public int[] twoSumQuick(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> backUp = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], i);
+            if (map.containsKey(nums[i])) {
+                backUp.put(nums[i], i);
+            } else {
+                map.put(nums[i], i);
+            }
         }
         int[] res = new int[2];
         for (Integer key : map.keySet()) {
-            if (map.containsKey(target - key)) {
+            if (map.containsKey(target - key) && key * 2 != target) {
                 res[0] = map.get(key);
                 res[1] = map.get(target - key);
                 return res;
+            } else if (map.containsKey(target - key) && key * 2 == target) {
+                res[0] = map.get(key);
+                res[1] = backUp.get(key);
             }
         }
         return res;
@@ -37,7 +46,7 @@ public class TwoSum {
         return res;
     }
 
-    public static void main(String ...args) {
+    public static void main(String... args) {
         int[] arr = {2, 7, 11, 15};
         PrintUtil.printArr(new TwoSum().twoSum(arr, 9), "twoSum");
     }
