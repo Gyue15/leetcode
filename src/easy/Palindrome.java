@@ -14,7 +14,33 @@ public class Palindrome {
         return Integer.MIN_VALUE <= res && res <= Integer.MAX_VALUE && res.intValue() == orign;
     }
 
+    public boolean isPalindrome(String s) {
+        s = s.toLowerCase();
+        int beginIndex = 0;
+        int endIndex = s.length() - 1;
+        while (beginIndex < endIndex) {
+            while (beginIndex < s.length() && !isLegal(s.charAt(beginIndex))) beginIndex++;
+            while (endIndex >= 0 && !isLegal(s.charAt(endIndex))) endIndex--;
+            if (beginIndex >= endIndex) {
+                return true;
+            }
+            char a = s.charAt(endIndex);
+            char b = s.charAt(beginIndex);
+            if (a != b) {
+                return false;
+            }
+            beginIndex++;
+            endIndex--;
+        }
+        return true;
+    }
+
+    private boolean isLegal(char c) {
+        return 'a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || '0' <= c && c <= '9';
+    }
+
+
     public static void main(String[] args) {
-        System.out.println(new Palindrome().isPalindrome(121));
+        System.out.println(new Palindrome().isPalindrome("A man, a plan, a canal: Panama"));
     }
 }
