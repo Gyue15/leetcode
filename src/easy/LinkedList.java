@@ -30,4 +30,24 @@ public class LinkedList {
         }
         return false;
     }
+
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode pointA = headA;
+        ListNode pointB = headB;
+
+        int count = 0;
+
+        while (count < 3 && pointA != null && pointB != null) {
+            if (pointA == pointB) {
+                return pointA;
+            }
+            if (pointA.next == null || pointB.next == null) {
+                count++;
+            }
+            pointA = pointA.next == null ? headB : pointA.next;
+            pointB = pointB.next == null ? headA : pointB.next;
+        }
+
+        return null;
+    }
 }

@@ -46,9 +46,21 @@ public class TwoSum {
         return res;
     }
 
+    public int[] twoSum2(int[] numbers, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < numbers.length; i++) {
+            if (map.containsKey(target - numbers[i])) {
+                return new int[]{map.get(target - numbers[i]), i};
+            } else {
+                map.put(numbers[i], i);
+            }
+        }
+        return null;
+    }
+
     public static void main(String... args) {
         int[] arr = {2, 7, 11, 15};
-        PrintUtil.printArr(new TwoSum().twoSum(arr, 9), "twoSum");
+        PrintUtil.printArr(new TwoSum().twoSum2(arr, 9), "twoSum");
     }
 
 }
