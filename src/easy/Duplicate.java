@@ -2,6 +2,9 @@ package easy;
 
 import util.PrintUtil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Duplicate {
     public int removeDuplicatesSlow(int[] nums) {
 
@@ -69,6 +72,41 @@ public class Duplicate {
         return nums.length - offset;
     }
 
+    public boolean containsDuplicate(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for (int num : nums) {
+            if (num > max) {
+                max = num;
+            }
+            if (num < min) {
+                min = num;
+            }
+        }
+
+        boolean[] repeat = new boolean[max - min + 1];
+        for (int num : nums) {
+            if (repeat[num - min]) {
+                return true;
+            }
+            repeat[num - min] = false;
+        }
+        return false;
+    }
+
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (i > k) {
+                set.remove(nums[i - k - 1]);
+            }
+            if(!set.add(nums[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public class ListNode {
         int val;
         ListNode next;
@@ -81,7 +119,7 @@ public class Duplicate {
     public ListNode deleteDuplicates(ListNode head) {
         ListNode res = head;
         while (head != null) {
-            while(head.next != null && head.val == head.next.val) {
+            while (head.next != null && head.val == head.next.val) {
                 ListNode node = head.next;
                 head.next = node.next;
             }
@@ -91,8 +129,6 @@ public class Duplicate {
     }
 
     public static void main(String[] args) {
-        int[] nums = {1, 1};
-        String len = "" + new Duplicate().removeDuplicates2(nums);
-        PrintUtil.printArr(nums, len);
+        System.out.println(Integer.MAX_VALUE + " " + Integer.MIN_VALUE);
     }
 }

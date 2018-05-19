@@ -18,7 +18,7 @@ public class LinkedList {
         }
         ListNode slow = head;
         ListNode fast = head.next;
-        while(slow != null && fast != null) {
+        while (slow != null && fast != null) {
             if (slow == fast) {
                 return true;
             }
@@ -50,4 +50,34 @@ public class LinkedList {
 
         return null;
     }
+
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode cur = dummy;
+        while (cur.next != null) {
+            if (cur.next.val == val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+
+        return dummy.next;
+    }
+
+    public ListNode reverseList(ListNode head) {
+        ListNode pre = null;
+        ListNode cur = head;
+
+        while (cur != null) {
+            ListNode temp = cur;
+            cur = cur.next;
+            temp.next = pre;
+            pre = temp;
+        }
+
+        return pre;
+    }
+
 }
